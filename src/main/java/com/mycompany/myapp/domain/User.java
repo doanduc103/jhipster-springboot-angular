@@ -80,6 +80,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @OneToMany
     private List<Product> productList = new ArrayList<>();
 
+    @OneToMany
+    @JsonIgnore
+    private List<Post> posts;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(

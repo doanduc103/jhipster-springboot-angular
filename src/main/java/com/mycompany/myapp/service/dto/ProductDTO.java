@@ -1,66 +1,40 @@
-package com.mycompany.myapp.domain;
+package com.mycompany.myapp.service.dto;
 
-import lombok.AllArgsConstructor;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.awt.*;
 import java.util.Date;
 
-@Entity
-@Table(name = "Product")
-@AllArgsConstructor
-public class Product extends AbstractAuditingEntity{
+public class ProductDTO {
 
     public static int count;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "product_name")
     @NotNull
     private String product_name;
-    @Column(name = "date_added")
     @NotNull
     private Date date_added;
-    @Column(name = "Description")
     @NotNull
     private TextArea Description;
-    @Column(name = "quantity")
     @NotNull
     private int quantity;
-    @Column(name = "price")
     @NotNull
     private double price;
-    @Column(name = "status")
     @NotNull
     private boolean status;
-    @Column(name = "image")
     @NotNull
     private List image;
-
-    @ManyToOne
-    @JoinColumn(name = "category_Product")
-    private Product product;
 
     public static int getCount() {
         return count;
     }
 
     public static void setCount(int count) {
-        Product.count = count;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public Product() {
+        ProductDTO.count = count;
     }
 
     public Long getId() {
@@ -125,20 +99,5 @@ public class Product extends AbstractAuditingEntity{
 
     public void setImage(List image) {
         this.image = image;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Product{" +
-            "id=" + id +
-            ", product_name='" + product_name + '\'' +
-            ", date_added=" + date_added +
-            ", Description=" + Description +
-            ", quantity=" + quantity +
-            ", price=" + price +
-            ", status=" + status +
-            ", image=" + image +
-            '}';
     }
 }
