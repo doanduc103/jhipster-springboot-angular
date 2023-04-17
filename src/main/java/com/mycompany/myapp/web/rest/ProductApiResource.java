@@ -41,7 +41,7 @@ public class ProductApiResource {
     }
 
 
-    @PostMapping("/product/crate")
+    @PostMapping("/product/create")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<?> CreateProduct(@RequestBody ProductDTO productDTO
         ,@RequestParam("Image") MultipartFile [] Product_Images) throws LoginException, IOException {

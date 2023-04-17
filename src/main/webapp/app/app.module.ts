@@ -24,6 +24,7 @@ import { NavbarComponent } from './layouts/navbar/navbar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ErrorComponent } from './layouts/error/error.component';
+import { ProductComponent } from './product/product.component';
 
 
 @NgModule({
@@ -46,7 +47,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     httpInterceptorProviders,
   ],
     declarations: [MainComponent, NavbarComponent, ErrorComponent,
-    PageRibbonComponent, FooterComponent,  ],
+    PageRibbonComponent, FooterComponent, ProductComponent,  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {
