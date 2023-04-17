@@ -1,6 +1,6 @@
 package com.mycompany.myapp.service;
 
-import com.mycompany.myapp.domain.Category;
+import com.mycompany.myapp.domain.CategoryProduct;
 import com.mycompany.myapp.repository.CategoryRepository;
 import com.mycompany.myapp.service.dto.CategoryDTO;
 import com.mycompany.myapp.service.mapper.CategoryMapper;
@@ -20,18 +20,18 @@ public class CategoryService {
 
     private final Logger log = LoggerFactory.getLogger(CategoryService.class);
 
-    public List<Category> GetAllCatory() {
+    public List<CategoryProduct> GetAllCatory() {
         return categoryRepository.findAll();
     }
 
-    public Category CreateNewCategory(CategoryDTO categoryDTO) {
-        Category category = new Category();
+    public CategoryProduct CreateNewCategoryProduct(CategoryDTO categoryDTO) {
+        CategoryProduct category = new CategoryProduct();
         category = categoryMapper.CategoryDTOTocategory(categoryDTO);
         categoryRepository.save(category);
         return category;
     }
 
-    public Optional<Category> EditCategory(Long id, CategoryDTO categoryDTO) {
+    public Optional<CategoryProduct> EditCategory(Long id, CategoryDTO categoryDTO) {
         return Optional.of(categoryRepository.findById(id)).filter(Optional::isPresent)
             .map(Optional::get).map(category -> {
                 category = categoryMapper.CategoryDTOTocategory(categoryDTO);
@@ -39,7 +39,7 @@ public class CategoryService {
             });
     }
 
-    public void DeleteCategory(Long id, Category category){
+    public void DeleteCategory(Long id, CategoryProduct category){
         categoryRepository.delete(category);
     }
 }

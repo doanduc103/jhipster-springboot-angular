@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.FileUploadUtils;
 import com.mycompany.myapp.domain.Product;
 import com.mycompany.myapp.repository.ProductRepository;
 import com.mycompany.myapp.security.AuthoritiesConstants;
@@ -15,8 +16,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.security.auth.login.LoginException;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -28,6 +31,8 @@ public class ProductApiResource {
 
     ProductSerivce productSerivce;
 
+    FileUploadUtils fileUploadUtils;
+
     @GetMapping("/product")
     public ResponseEntity<Page<Product>> FindAllProductByPaging(Pageable pageable) {
         log.debug("Find All Product Pageable");
@@ -37,17 +42,21 @@ public class ProductApiResource {
 
 
     @PostMapping("/product/crate")
-    public ResponseEntity<?> CreateProduct(ProductDTO productDTO) throws LoginException {
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<?> CreateProduct(@RequestBody ProductDTO productDTO
+        ,@RequestParam("Image") MultipartFile [] Product_Images) throws LoginException, IOException {
         log.debug("Start Create Product " + productDTO);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null) {
             throw new LoginException("No account login ");
         }
+        fileUploadUtils.ConvertImage(Product_Images,productDTO);
         productSerivce.CreateProductFromUser(productDTO);
         return ResponseEntity.ok("Create Product " + productDTO.getId());
     }
 
     @PutMapping("/product/edit/{id}")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<?> EditProductById(@PathVariable Long id , ProductDTO productDTO) throws LoginException {
         log.debug("Start Edit Product " + productDTO);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -60,12 +69,14 @@ public class ProductApiResource {
 
 
     @DeleteMapping("/product/delete/{id}")
-    public ResponseEntity<?> DeleteProductById(@PathVariable Long id , ProductDTO productDTO) throws LoginException {
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<?> DeleteProductById(@PathVariable Long id , ProductDTO productDTO) throws LoginException, IOException {
         log.debug("Start delete Product " + productDTO);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth == null) {
             throw new LoginException("No account login ");
         }
+        fileUploadUtils.DeleteDirUploadFile(productDTO);
         productSerivce.DeleteProductById(id);
         return ResponseEntity.ok("Detele Product " + productDTO.getId());
     }

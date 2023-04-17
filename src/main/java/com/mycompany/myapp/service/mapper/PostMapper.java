@@ -1,6 +1,6 @@
 package com.mycompany.myapp.service.mapper;
 
-import com.mycompany.myapp.domain.Category;
+import com.mycompany.myapp.domain.CategoryProduct;
 import com.mycompany.myapp.domain.Post;
 import com.mycompany.myapp.service.dto.CategoryDTO;
 import com.mycompany.myapp.service.dto.PostDTO;

@@ -12,8 +12,6 @@ import java.awt.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class Post extends AbstractAuditingEntity{
 
     @Id
@@ -38,4 +36,60 @@ public class Post extends AbstractAuditingEntity{
     @ManyToOne
     @JoinColumn(name = "user_post")
     private User user;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getTitle_post() {
+        return Title_post;
+    }
+
+    public void setTitle_post(String title_post) {
+        Title_post = title_post;
+    }
+
+    public String getHeader_post() {
+        return header_post;
+    }
+
+    public void setHeader_post(String header_post) {
+        this.header_post = header_post;
+    }
+
+    public TextArea getBody_post() {
+        return body_post;
+    }
+
+    public void setBody_post(TextArea body_post) {
+        this.body_post = body_post;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -45,7 +45,8 @@ import { ErrorComponent } from './layouts/error/error.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
+    declarations: [MainComponent, NavbarComponent, ErrorComponent,
+    PageRibbonComponent, FooterComponent,  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {
